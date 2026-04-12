@@ -5,69 +5,63 @@
       font-style: italic;
       font-size: 28px;
       fill: #F5F5F5;
-      letter-spacing: 0.5px;
     }
-
     .cursor {
       fill: #F5F5F5;
       animation: blink 1s infinite;
     }
-
     @keyframes blink {
-      0%, 50%, 100% { opacity: 1; }
-      25%, 75% { opacity: 0; }
+      0%,100% { opacity: 1; }
+      50% { opacity: 0; }
     }
   </style>
 
-  <!-- Background (optional, transparent by default) -->
   <rect width="100%" height="100%" fill="transparent"/>
 
-  <!-- Text container -->
-  <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" class="text">
-    <tspan id="line"></tspan>
-    <tspan class="cursor">|</tspan>
+  <!-- Line 1 -->
+  <text x="50%" y="50%" text-anchor="middle" class="text">
+    <tspan opacity="0">
+      CS Student📍Hong Kong
+      <animate attributeName="opacity"
+        values="1;1;0;0;0;0;0;0"
+        dur="12s"
+        repeatCount="indefinite"/>
+    </tspan>
   </text>
 
-  <script><![CDATA[
-    const lines = [
-      "CS Student📍Hong Kong",
-      "Exploring Robotics and AI Systems",
-      "Piling up the stack and developing!",
-      "Always Learning"
-    ];
+  <!-- Line 2 -->
+  <text x="50%" y="50%" text-anchor="middle" class="text">
+    <tspan opacity="0">
+      Exploring Robotics and AI Systems
+      <animate attributeName="opacity"
+        values="0;0;1;1;0;0;0;0"
+        dur="12s"
+        repeatCount="indefinite"/>
+    </tspan>
+  </text>
 
-    const textElement = document.getElementById("line");
+  <!-- Line 3 -->
+  <text x="50%" y="50%" text-anchor="middle" class="text">
+    <tspan opacity="0">
+      Piling up the stack and developing!
+      <animate attributeName="opacity"
+        values="0;0;0;0;1;1;0;0"
+        dur="12s"
+        repeatCount="indefinite"/>
+    </tspan>
+  </text>
 
-    let lineIndex = 0;
-    let charIndex = 0;
-    let currentText = "";
-    let deleting = false;
+  <!-- Line 4 -->
+  <text x="50%" y="50%" text-anchor="middle" class="text">
+    <tspan opacity="0">
+      Always Learning
+      <animate attributeName="opacity"
+        values="0;0;0;0;0;0;1;1"
+        dur="12s"
+        repeatCount="indefinite"/>
+    </tspan>
+  </text>
 
-    function type() {
-      const fullText = lines[lineIndex];
-
-      if (!deleting) {
-        currentText = fullText.substring(0, charIndex++);
-      } else {
-        currentText = fullText.substring(0, charIndex--);
-      }
-
-      textElement.textContent = currentText;
-
-      let speed = deleting ? 40 : 70;
-
-      if (!deleting && charIndex === fullText.length) {
-        speed = 1400;
-        deleting = true;
-      } else if (deleting && charIndex === 0) {
-        deleting = false;
-        lineIndex = (lineIndex + 1) % lines.length;
-        speed = 500;
-      }
-
-      setTimeout(type, speed);
-    }
-
-    type();
-  ]]></script>
+  <!-- Cursor -->
+  <text x="87%" y="50%" class="cursor" font-size="28px">|</text>
 </svg>
